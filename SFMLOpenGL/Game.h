@@ -39,7 +39,7 @@ private:
 	void mouseMovement();
 	void leftViewports();
 	void rightViewports();
-	void renderCube(mat4 &npc);
+	void renderCube(mat4 &npc, mat4 &view);
 
 	bool firstMouse;
 	bool isRunning;
@@ -59,6 +59,14 @@ private:
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
+
+	int timer_mis = 0; // millisecond
+	int timer_sec = 0; // second
+	int timer_min = 0; // minute
+
+	int score = 0;
+
+	void timer(double t);
 };
 
 #endif

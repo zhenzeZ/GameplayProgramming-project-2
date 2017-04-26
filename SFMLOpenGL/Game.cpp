@@ -85,74 +85,77 @@ void Game::run()
 			{
 				isRunning = false;
 			}
-
-			//get the time since last update and restart the clock
-			timeSinceLastUpdate += m_clock.restart();
-			//update every 60th of a second
-			if (timeSinceLastUpdate > timePerFrame)
-			{
-				if (!gameover)
-				{
-					if (event.type == Event::Closed)
-					{
-						isRunning = false;
-					}
-
-					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player[3].x >= -5.0f)
-					{
-						// Set Model Rotation
-						//player = rotate(player, -0.01f, glm::vec3(0, 1, 0)); // Rotate
-						player = translate(player, vec3(-0.1, 0, 0)); // move 
-					}
-
-					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && player[3].x <= 5.0f)
-					{
-						// Set Model Rotation
-						//player = rotate(player, 0.01f, glm::vec3(0, 1, 0)); // Rotate
-						player = translate(player, vec3(0.1, 0, 0)); // move 
-					}
-
-					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player[3].y <= 5.0f)
-					{
-						// Set Model Rotation
-						//player = rotate(player, -0.01f, glm::vec3(1, 0, 0)); // Rotate
-						player = translate(player, vec3(-0, 0.1, 0)); // move 
-					}
-
-					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player[3].y >= -5.0f)
-					{
-						// Set Model Rotation
-						//player = rotate(player, 0.01f, glm::vec3(1, 0, 0)); // Rotate
-						player = translate(player, vec3(-0, -0.1, 0)); // move 
-					}
-
-
-					update();
-					render();
-				}
-				else
-				{
-					std::cout << "R to replay" << std::endl;
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-					{
-						gameover = false;
-						npc[0] = translate(npc[0], glm::vec3(1.0f, 1.0f, -25.0f)); // translate
-						npc[1] = translate(npc[1], glm::vec3(2.0f, 4.0f, -14.0f)); // translate
-						npc[2] = translate(npc[2], glm::vec3(-4.0f, -1.0f, -26.0f)); // translate
-						npc[3] = translate(npc[3], glm::vec3(-2.0f, 3.0f, -17.0f)); // translate
-						npc[4] = translate(npc[4], glm::vec3(4.0f, 1.0f, -25.0f)); // translate
-						npc[5] = translate(npc[5], glm::vec3(1.5f, 2.0f, -20.0f)); // translate
-						npc[6] = translate(npc[6], glm::vec3(-4.0f, 1.0f, -18.0f)); // translate
-						npc[7] = translate(npc[7], glm::vec3(2.0f, -4.0f, -25.0f)); // translate
-						npc[8] = translate(npc[8], glm::vec3(-1.0f, -1.0f, -19.0f)); // translate
-						npc[9] = translate(npc[9], glm::vec3(-3.0f, 4.0f, -25.0f)); // translate
-					}
-				}
-				timeSinceLastUpdate = sf::Time::Zero;
-			}
 		}
 
+		//get the time since last update and restart the clock
+		timeSinceLastUpdate += m_clock.restart();
+		//update every 60th of a second
+		if (timeSinceLastUpdate > timePerFrame)
+		{
+			if (!gameover)
+			{
+				if (event.type == Event::Closed)
+				{
+					isRunning = false;
+				}
 
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player[3].x >= -5.0f)
+				{
+					// Set Model Rotation
+					//player = rotate(player, -0.01f, glm::vec3(0, 1, 0)); // Rotate
+					player = translate(player, vec3(-0.1, 0, 0)); // move 
+				}
+
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && player[3].x <= 5.0f)
+				{
+					// Set Model Rotation
+					//player = rotate(player, 0.01f, glm::vec3(0, 1, 0)); // Rotate
+					player = translate(player, vec3(0.1, 0, 0)); // move 
+				}
+
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player[3].y <= 5.0f)
+				{
+					// Set Model Rotation
+					//player = rotate(player, -0.01f, glm::vec3(1, 0, 0)); // Rotate
+					player = translate(player, vec3(-0, 0.1, 0)); // move 
+				}
+
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player[3].y >= -5.0f)
+				{
+					// Set Model Rotation
+					//player = rotate(player, 0.01f, glm::vec3(1, 0, 0)); // Rotate
+					player = translate(player, vec3(-0, -0.1, 0)); // move 
+				}
+
+				update();
+				render();
+			}
+			else
+			{
+				std::cout << "min: " << timer_min;
+				std::cout << " sec: " << timer_sec;
+				std::cout << " mis: " << timer_mis << std::endl;
+				std::cout << "score: " << score << std::endl;
+				std::cout << "R to replay" << std::endl;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+				{
+					gameover = false;
+					npc[0] = translate(npc[0], glm::vec3(1.0f, 1.0f, -25.0f)); // translate
+					npc[1] = translate(npc[1], glm::vec3(2.0f, 4.0f, -14.0f)); // translate
+					npc[2] = translate(npc[2], glm::vec3(-4.0f, -1.0f, -26.0f)); // translate
+					npc[3] = translate(npc[3], glm::vec3(-2.0f, 3.0f, -17.0f)); // translate
+					npc[4] = translate(npc[4], glm::vec3(4.0f, 1.0f, -25.0f)); // translate
+					npc[5] = translate(npc[5], glm::vec3(1.5f, 2.0f, -20.0f)); // translate
+					npc[6] = translate(npc[6], glm::vec3(-4.0f, 1.0f, -18.0f)); // translate
+					npc[7] = translate(npc[7], glm::vec3(2.0f, -4.0f, -25.0f)); // translate
+					npc[8] = translate(npc[8], glm::vec3(-1.0f, -1.0f, -19.0f)); // translate
+					npc[9] = translate(npc[9], glm::vec3(-3.0f, 4.0f, -25.0f)); // translate
+					timer_min = timer_sec = timer_mis = score = 0; 
+				}
+			}
+			timeSinceLastUpdate = sf::Time::Zero;
+		}
+		
 	}
 
 #if (DEBUG >= 2)
@@ -173,7 +176,7 @@ void Game::initialize()
 	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	// set position to npc and player
-	npc[0] = translate(npc[0], glm::vec3(1.0f, 1.0f, -25.0f)); // translate
+	npc[0] = translate(npc[0], glm::vec3(1, 1.0f, -25.0f)); // translate
 	npc[1] = translate(npc[1], glm::vec3(2.0f, 4.0f, -14.0f)); // translate
 	npc[2] = translate(npc[2], glm::vec3(-4.0f, -1.0f, -26.0f)); // translate
 	npc[3] = translate(npc[3], glm::vec3(-2.0f, 3.0f, -17.0f)); // translate
@@ -264,7 +267,7 @@ void Game::initialize()
 		//"	fColor = texture2D(f_texture, uv);"
 		//"	fColor = color * texture2D(f_texture, uv);"
 		//"	fColor = lightColor * texture2D(f_texture, uv);"
-		//"	fColor = color + texture2D(f_texture, uv);"
+		"	fColor = color + texture2D(f_texture, uv);"
 		//"	fColor = color - texture2D(f_texture, uv);"
 		"	fColor = color;"
 		"}"; //Fragment Shader Src
@@ -417,69 +420,87 @@ void Game::update()
 
 	mouseMovement();
 
-	npc[0] = translate(npc[0], vec3(0.0f, 0.0f, 0.05f));
-	npc[1] = translate(npc[1], vec3(0.0f, 0.0f, 0.03f));
-	npc[2] = translate(npc[2], vec3(0.0f, 0.0f, 0.06f));
-	npc[3] = translate(npc[3], vec3(0.0f, 0.0f, 0.045f));
-	npc[4] = translate(npc[4], vec3(0.0f, 0.0f, 0.035f));
-	npc[5] = translate(npc[5], vec3(0.0f, 0.0f, 0.065f));
-	npc[6] = translate(npc[6], vec3(0.0f, 0.0f, 0.055f));
-	npc[7] = translate(npc[7], vec3(0.0f, 0.0f, 0.025f));
-	npc[8] = translate(npc[8], vec3(0.0f, 0.0f, 0.04f));
-	npc[9] = translate(npc[9], vec3(0.0f, 0.0f, 0.055f));
+	npc[0] = translate(npc[0], vec3(0.0f, 0.0f, 0.25f));
+	npc[1] = translate(npc[1], vec3(0.0f, 0.0f, 0.15f));
+	npc[2] = translate(npc[2], vec3(0.0f, 0.0f, 0.3f));
+	npc[3] = translate(npc[3], vec3(0.0f, 0.0f, 0.225f));
+	npc[4] = translate(npc[4], vec3(0.0f, 0.0f, 0.175f));
+	npc[5] = translate(npc[5], vec3(0.0f, 0.0f, 0.325f));
+	npc[6] = translate(npc[6], vec3(0.0f, 0.0f, 0.275f));
+	npc[7] = translate(npc[7], vec3(0.0f, 0.0f, 0.125f));
+	npc[8] = translate(npc[8], vec3(0.0f, 0.0f, 0.2f));
+	npc[9] = translate(npc[9], vec3(0.0f, 0.0f, 0.275f));
 
 	for (int i = 0; i < 10; i++)
 	{
 		if (npc[i][3].z >= 5)
 		{
-			npc[i] = translate(npc[i], glm::vec3(0, 0, -30.0f));
+			npc[i] = translate(npc[i], glm::vec3(rand() % 10 - 5, rand() % 10 - 5, -30.0f));
+			if (npc[i][3].x >= 5)
+			{
+				npc[i] = translate(npc[i], glm::vec3(rand() % 10 - 10, 0.0f, 0.0f));
+			}
+			else if (npc[i][3].x <= -5)
+			{
+				npc[i] = translate(npc[i], glm::vec3(rand() % 10, 0.0f, 0.0f));
+			}
+
+			if (npc[i][3].y >= 5)
+			{
+				npc[i] = translate(npc[i], glm::vec3(0.0f, rand() % 10 - 10, 0.0f));
+			}
+			else if (npc[i][3].y <= -5)
+			{
+				npc[i] = translate(npc[i], glm::vec3(0.0f, rand() % 10, 0.0f));
+			}
+
+			score++;
 		}
 
-		if (player[3].x >= npc[i][3].x - 1 && player[3].x <= npc[i][3].x + 1 &&
-			player[3].y >= npc[i][3].y - 1 && player[3].y <= npc[i][3].y + 1 &&
-			player[3].z >= npc[i][3].z - 1 && player[3].z <= npc[i][3].z + 1)
+		if (player[3].x >= npc[i][3].x - 1.5 && player[3].x <= npc[i][3].x + 1.5 &&
+			player[3].y >= npc[i][3].y - 1.5 && player[3].y <= npc[i][3].y + 1.5 &&
+			player[3].z >= npc[i][3].z - 1.5 && player[3].z <= npc[i][3].z + 1.5)
 		{
 			gameover = true;
 		}
 	}
+
+	timer(timeSinceLastUpdate.asSeconds());
 }
 
+void Game::timer(double t)
+{
+	// timer part
+	timer_mis += t * 100;
+
+	if (timer_mis >= 100) // when millisecond great than 100, second add 1
+	{
+		timer_sec++;
+		timer_mis = 0;
+	}
+
+	if (timer_sec >= 60) // when second over 60, minute add 1
+	{
+		timer_min++;
+		timer_sec = 0;
+	}
+
+	std::cout << "min: " << timer_min;
+	std::cout << " sec: " << timer_sec;
+	std::cout << " mis: "<< timer_mis << std::endl;
+	std::cout << "score: " << score << std::endl;
+}
 
 void Game::leftViewports()
 {
 	glViewport(0, 0, 400, 600);
 	glLoadIdentity();
-	viewLeft = lookAt(vec3(0.0f, 0.0f, 5.0f),	// Camera (x,y,z), in World Space
+	viewLeft = lookAt(vec3(0.0f, 0.0f, 7.0f),	// Camera (x,y,z), in World Space
 			cameraFront,	// Camera looking at origin
 			vec3(0.0f, 1.0f, 0.0f)	// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
 			);
-
-	glDrawElements(GL_TRIANGLES, 3 * INDICES, GL_UNSIGNED_INT, NULL);
-}
-
-void Game::rightViewports()
-{
-	glViewport(400, 0, 400, 600);
-	glLoadIdentity();
-	viewRight = lookAt(vec3(0.0f, 0.0f, 5.0f),	// Camera (x,y,z), in World Space
-			cameraFront,	// Camera looking at origin
-			vec3(0.0f, 1.0f, 0.0f)	// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
-			);
-
-	glDrawElements(GL_TRIANGLES, 3 * INDICES, GL_UNSIGNED_INT, NULL);
-}
-
-void Game::render()
-{
-
-#if (DEBUG >= 2)
-	DEBUG_MSG("Render Loop...");
-#endif
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	/// player
-	mvp = projection * viewRight * viewLeft * player;
+	mvp = projection * viewLeft * player;
 
 	//VBO Data....vertices, colors and UV's appended
 	glBufferSubData(GL_ARRAY_BUFFER, 0 * VERTICES * sizeof(GLfloat), 3 * VERTICES * sizeof(GLfloat), verticesPlayer);
@@ -510,8 +531,63 @@ void Game::render()
 	/// npc
 	for (int i = 0; i < 10; i++)
 	{
-		renderCube(npc[i]);
+		renderCube(npc[i], viewLeft);
 	}
+}
+
+void Game::rightViewports()
+{
+	glViewport(400, 0, 400, 600);
+	glLoadIdentity();
+	viewRight = lookAt(vec3(0.0f, 0.0f, 7.0f),	// Camera (x,y,z), in World Space
+			cameraFront,	// Camera looking at origin
+			vec3(0.0f, 1.0f, 0.0f)	// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
+			);
+
+	/// player
+	mvp = projection * viewRight * player;
+
+	//VBO Data....vertices, colors and UV's appended
+	glBufferSubData(GL_ARRAY_BUFFER, 0 * VERTICES * sizeof(GLfloat), 3 * VERTICES * sizeof(GLfloat), verticesPlayer);
+	glBufferSubData(GL_ARRAY_BUFFER, 3 * VERTICES * sizeof(GLfloat), 4 * COLORS * sizeof(GLfloat), colorsPlayer);
+	glBufferSubData(GL_ARRAY_BUFFER, ((3 * VERTICES) + (4 * COLORS)) * sizeof(GLfloat), 2 * UVS * sizeof(GLfloat), uvsPlayer);
+
+	// Send transformation to shader mvp uniform
+	glUniformMatrix4fv(mvpID, 1, GL_FALSE, &mvp[0][0]);
+
+	//Set Active Texture .... 32
+	glActiveTexture(GL_TEXTURE0);
+	glUniform1i(textureID, 0);
+
+	//Set pointers for each parameter (with appropriate starting positions)
+	//https://www.khronos.org/opengles/sdk/docs/man/xhtml/glVertexAttribPointer.xml
+	glVertexAttribPointer(positionID, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(colorID, 4, GL_FLOAT, GL_FALSE, 0, (VOID*)(3 * VERTICES * sizeof(GLfloat)));
+	glVertexAttribPointer(uvID, 2, GL_FLOAT, GL_FALSE, 0, (VOID*)(((3 * VERTICES) + (4 * COLORS)) * sizeof(GLfloat)));
+
+	//Enable Arrays
+	glEnableVertexAttribArray(positionID);
+	glEnableVertexAttribArray(colorID);
+	glEnableVertexAttribArray(uvID);
+
+	//Draw Element Arrays
+	glDrawElements(GL_TRIANGLES, 3 * INDICES, GL_UNSIGNED_INT, NULL);
+
+	/// npc
+	for (int i = 0; i < 10; i++)
+	{
+		renderCube(npc[i], viewRight);
+	}
+}
+
+void Game::render()
+{
+
+#if (DEBUG >= 2)
+	DEBUG_MSG("Render Loop...");
+#endif
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	leftViewports();
 	rightViewports();
@@ -525,9 +601,9 @@ void Game::render()
 
 }
 
-void Game::renderCube(mat4 &npc)
+void Game::renderCube(mat4 &npc, mat4 &view)
 {
-	mvp = projection * viewLeft * viewRight * npc;
+	mvp = projection * view  * npc;
 
 	//VBO Data....vertices, colors and UV's appended
 	glBufferSubData(GL_ARRAY_BUFFER, 0 * VERTICES * sizeof(GLfloat), 3 * VERTICES * sizeof(GLfloat), vertices);
@@ -573,28 +649,36 @@ void Game::mouseMovement()
 	float ypos = static_cast<float>(m_mousePos.y);
 
 	// get mouse positoin changing
-	GLfloat x = xpos - lastX;
-	GLfloat y = lastY - ypos; 
+	GLfloat x =lastX - xpos;
+	GLfloat y =lastY - ypos;
 	//record the last mouse positon
 	lastX = xpos;
 	lastY = ypos;
 
 	// move camera direction
-	diertionX += -x;
+	diertionX += x;
 	diertionY += y;
 
 	
 	// Make sure that when y direction is out of bounds, screen doesn't get flipped
 	if (diertionY > 90.0f)
+	{
 		diertionY = 90.0f;
+	}
 	if (diertionY < -90.0f)
+	{
 		diertionY = -90.0f;
+	}
 
 	// Make sure that when y direction is out of bounds, screen doesn't get flipped
 	if (diertionX > 180.0f)
+	{
 		diertionX = 180.0f;
+	}
 	if (diertionX < 0.0f)
+	{
 		diertionX = 0.0f;
+	}
 
 	// get the camera looking at origin
 	glm::vec3 front;
