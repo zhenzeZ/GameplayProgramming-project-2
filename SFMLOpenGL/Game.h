@@ -39,9 +39,11 @@ private:
 	void mouseMovement();
 	void leftViewports();
 	void rightViewports();
+	void renderCube(mat4 &npc);
 
 	bool firstMouse;
 	bool isRunning;
+	bool gameover = false;
 
 	GLfloat lastX;
 	GLfloat lastY;
@@ -53,11 +55,9 @@ private:
 	sf::View leftView;
 	sf::View RightView;
 
-	sf::Clock  m_clock;
+	sf::Clock m_clock;
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-
-	sf::Font m_font;
 
 };
 
