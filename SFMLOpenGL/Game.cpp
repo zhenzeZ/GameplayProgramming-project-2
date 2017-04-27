@@ -35,7 +35,7 @@ unsigned char* img_data2;		// image data
 
 mat4 mvp, projection, viewLeft, viewRight, player, npc[10]; // Model View Projection
 
-glm::vec3 cameraFront;
+glm::vec3 lookingPoint;
 
 Game::Game() :
 	window(VideoMode(800, 600),
@@ -99,28 +99,28 @@ void Game::run()
 					isRunning = false;
 				}
 
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player[3].x >= -5.0f)
+				else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && player[3].x >= -5.0f)
 				{
 					// Set Model Rotation
 					//player = rotate(player, -0.01f, glm::vec3(0, 1, 0)); // Rotate
 					player = translate(player, vec3(-0.1, 0, 0)); // move 
 				}
 
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && player[3].x <= 5.0f)
+				else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && player[3].x <= 5.0f)
 				{
 					// Set Model Rotation
 					//player = rotate(player, 0.01f, glm::vec3(0, 1, 0)); // Rotate
 					player = translate(player, vec3(0.1, 0, 0)); // move 
 				}
 
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player[3].y <= 5.0f)
+				else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && player[3].y <= 5.0f)
 				{
 					// Set Model Rotation
 					//player = rotate(player, -0.01f, glm::vec3(1, 0, 0)); // Rotate
 					player = translate(player, vec3(-0, 0.1, 0)); // move 
 				}
 
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player[3].y >= -5.0f)
+				else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && player[3].y >= -5.0f)
 				{
 					// Set Model Rotation
 					//player = rotate(player, 0.01f, glm::vec3(1, 0, 0)); // Rotate
@@ -128,7 +128,6 @@ void Game::run()
 				}
 
 				update();
-				render();
 			}
 			else
 			{
@@ -137,6 +136,10 @@ void Game::run()
 				std::cout << " mis: " << timer_mis << std::endl;
 				std::cout << "score: " << score << std::endl;
 				std::cout << "R to replay" << std::endl;
+
+				//player = rotate(player, 0.01f, glm::vec3(0, 1, 0)); // Rotate
+				//player = rotate(player, -0.01f, glm::vec3(1, 0, 0)); // Rotate
+
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 				{
 					gameover = false;
@@ -150,9 +153,13 @@ void Game::run()
 					npc[7] = translate(npc[7], glm::vec3(2.0f, -4.0f, -25.0f)); // translate
 					npc[8] = translate(npc[8], glm::vec3(-1.0f, -1.0f, -19.0f)); // translate
 					npc[9] = translate(npc[9], glm::vec3(-3.0f, 4.0f, -25.0f)); // translate
+
+
+
 					timer_min = timer_sec = timer_mis = score = 0; 
 				}
 			}
+			render();
 			timeSinceLastUpdate = sf::Time::Zero;
 		}
 		
@@ -173,9 +180,9 @@ void Game::initialize()
 
 	glewInit();
 	
-	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
+	lookingPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	// set position to npc and player
+	// set position to npc
 	npc[0] = translate(npc[0], glm::vec3(1, 1.0f, -25.0f)); // translate
 	npc[1] = translate(npc[1], glm::vec3(2.0f, 4.0f, -14.0f)); // translate
 	npc[2] = translate(npc[2], glm::vec3(-4.0f, -1.0f, -26.0f)); // translate
@@ -390,7 +397,7 @@ void Game::initialize()
 	// Projection Matrix 
 	projection = perspective(
 		45.0f,					// Field of View 45 degrees
-		4.0f / 3.0f,			// Aspect ratio
+		3.0f / 3.0f,			// Aspect ratio
 		5.0f,					// Display Range Min : 0.1f unit
 		100.0f					// Display Range Max : 100.0f unit
 		);
@@ -496,7 +503,7 @@ void Game::leftViewports()
 	glViewport(0, 0, 400, 600);
 	glLoadIdentity();
 	viewLeft = lookAt(vec3(0.0f, 0.0f, 7.0f),	// Camera (x,y,z), in World Space
-			cameraFront,	// Camera looking at origin
+			lookingPoint,	// Camera looking at origin
 			vec3(0.0f, 1.0f, 0.0f)	// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
 			);
 	/// player
@@ -540,7 +547,7 @@ void Game::rightViewports()
 	glViewport(400, 0, 400, 600);
 	glLoadIdentity();
 	viewRight = lookAt(vec3(0.0f, 0.0f, 7.0f),	// Camera (x,y,z), in World Space
-			cameraFront,	// Camera looking at origin
+			lookingPoint,	// Camera looking at origin
 			vec3(0.0f, 1.0f, 0.0f)	// 0.0f, 1.0f, 0.0f Look Down and 0.0f, -1.0f, 0.0f Look Up
 			);
 
@@ -685,5 +692,5 @@ void Game::mouseMovement()
 	front.x = cos(glm::radians(diertionX)) * cos(glm::radians(diertionY));
 	front.y = sin(glm::radians(diertionY));
 	front.z = sin(glm::radians(diertionX)) * cos(glm::radians(diertionY));
-	cameraFront = glm::normalize(front);
+	lookingPoint = glm::normalize(front);
 }
